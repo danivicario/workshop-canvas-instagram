@@ -8,6 +8,8 @@ function getPixelColor(imageData, col, row) {
 }
 
 let imageData;
+let img;
+let pencilSize = 1;
 
 // eslint-disable-next-line no-unused-vars
 const globalCompositeOperationModes = {
@@ -79,67 +81,88 @@ function draw() {
 
   ctx.drawImage(img, 0, 0, w, h);
   imageData = ctx.getImageData(0, 0, w, h);
+}
+
+function applyFilter1() {
   ctx.clearRect(0, 0, w, h);
-  let step = 1;
-  let r, g, b;
   let posX = 0,
     posY = 0;
 
   for (let i = 0; i < w * h; i++) {
     ctx.beginPath();
 
-    // console.log(posX);
-
-    if (posX === w) {
+    if (posX > w) {
       posY += 1;
       posX = 0;
     }
 
-    let xxx = posX * posY * 4;
     let { r, g, b } = getPixelColor(imageData, posX, posY);
     var v = 0.2126 * r + 0.7152 * g + 0.0722 * b;
-    // d[i] = d[i+1] = d[i+2] = v
-    ctx.fillStyle = `rgb(${v},${v},${v}, .1)`;
-    // ctx.rect(posX, posY, randomInt(1, 1), 0, PI_DOUBLE);
+
     if (randomInt(0, 1) === 0) {
+      ctx.fillStyle = `rgb(${v},${v},${v}, 1)`;
       ctx.rect(posX, posY, 1, 1);
+      posX += 1;
     } else {
-      ctx.rect(posX, posY, 10, 10);
+      ctx.fillStyle = `rgb(${v},${v},${v}, 1)`;
+      ctx.rect(posX, posY, 25, 1);
+      posX += 25;
     }
     ctx.fill();
     ctx.closePath();
-    // posX += 25;
-
-    posX += 1;
   }
-
-  // alert("x");
-
-  // ctx.clearRect(0, 0, w, h);
-  // ctx.putImageData(imgData, 0, 0);
 }
-let img = new Image();
-img.src = "./img.jpg";
-img.onload = () => {
-  window.requestAnimationFrame(() => {
+
+function loadImage(id) {
+  img = new Image();
+  img.src = "./img.jpg";
+  img.onload = () => {
+    window.requestAnimationFrame(() => {
+      draw();
+    }, 10);
+  };
+
+  window.onresize = () => {
     draw();
-  }, 10);
+  };
+}
+
+function enablePen() {
+  canvas.addEventListener("mousemove", function (event) {
+    ctx.beginPath();
+    // pick(event, hoveredColor);
+    // console.log(event);
+
+    let { r, g, b } = getPixelColor(imageData, event.layerX, event.layerY);
+    // var v = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+    // d[i] = d[i+1] = d[i+2] = v
+    ctx.rect(event.layerX, event.layerY, pencilSize, pencilSize);
+    ctx.fillStyle = `rgb(${255},${0},${0}, 1)`;
+    ctx.fill();
+    ctx.closePath();
+  });
+}
+
+function resetTools() {}
+function initValues() {
+  toolsPencilValue();
+}
+function toolsPencilValue() {
+  document.querySelector("#tools-pencil-value").innerHTML = pencilSize = document.querySelector(
+    "#tools-pencil-slider"
+  ).value;
+}
+function initMenu() {
+  initValues();
+}
+
+document.querySelector("#tools-pencil").onclick = () => {
+  resetTools();
+  enablePen();
 };
 
-window.onresize = () => {
-  draw();
+document.querySelector("#tools-pencil-slider").onchange = () => {
+  toolsPencilValue();
 };
 
-canvas.addEventListener("mousemove", function (event) {
-  ctx.beginPath();
-  // pick(event, hoveredColor);
-  // console.log(event);
-
-  let { r, g, b } = getPixelColor(imageData, event.layerX, event.layerY);
-  // var v = 0.2126 * r + 0.7152 * g + 0.0722 * b;
-  // d[i] = d[i+1] = d[i+2] = v
-  ctx.rect(event.layerX, event.layerY, 10, 10);
-  ctx.fillStyle = `rgb(${255},${0},${0}, 1)`;
-  ctx.fill();
-  ctx.closePath();
-});
+initMenu();
