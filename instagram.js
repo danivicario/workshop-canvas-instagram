@@ -68,42 +68,49 @@ function draw() {
   // eslint-disable-next-line no-unused-vars
   h2 = h / 2;
 
-  ctx.clearRect(0, 0, w, h);
   ctx.drawImage(img, 0, 0, w, h);
-
-  var imgData = ctx.getImageData(0, 0, w, h);
+  var imageData = ctx.getImageData(0, 0, w, h);
   ctx.clearRect(0, 0, w, h);
-  let step = 2;
-  let counter = 0;
-  let xxx = Math.floor(w / 20);
+  let step = 1;
+  let r, g, b;
+  let posX = 0,
+    posY = 0;
 
-  for (let i = 0, posX = 0, posY = 0; i < imgData.data.length; i += 4) {
-    // imgData.data[i] = 255 + imgData.data[i];
-    // imgData.data[i + 1] = 255 - imgData.data[i + 1];
-    // imgData.data[i + 2] = 255 - imgData.data[i + 2];
-    // imgData.data[i + 3] = 255 - imgData.data[i + 3];
-    // imgData.data[i + 1] = randomInt(0, 255);
-    // imgData.data[i + 2] = randomInt(0, 255);
+  for (let i = 0; i < w * h; i++) {
     ctx.beginPath();
 
+    // console.log(posX);
+
     if (posX === w) {
-      posY += step / 2;
+      posY += 1;
       posX = 0;
-      counter = w * 4;
     }
-
-    ctx.arc(posX, posY, 10, 0, 2 * Math.PI);
-
-    ctx.fillStyle = `rgba(${imgData.data[counter]},${imgData.data[counter + 1]},${
-      imgData.data[counter + 2]
-    }, .5)`;
-
+    function getPixelColor(imageData, col, row) {
+      return {
+        r: imageData.data[row * (imageData.width * 4) + col * 4 + 0],
+        g: imageData.data[row * (imageData.width * 4) + col * 4 + 1],
+        b: imageData.data[row * (imageData.width * 4) + col * 4 + 2]
+      };
+    }
+    let xxx = posX * posY * 4;
+    let { r, g, b } = getPixelColor(imageData, posX, posY);
+    var v = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+    // d[i] = d[i+1] = d[i+2] = v
+    ctx.fillStyle = `rgb(${v},${v},${v}, .1)`;
+    // ctx.rect(posX, posY, randomInt(1, 1), 0, PI_DOUBLE);
+    if (randomInt(0, 1) === 0) {
+      ctx.rect(posX, posY, 1, 1);
+    } else {
+      ctx.rect(posX, posY, 10, 10);
+    }
     ctx.fill();
     ctx.closePath();
+    // posX += 25;
 
-    posX += xxx;
-    counter += xxx * 4;
+    posX += 1;
   }
+
+  // alert("x");
 
   // ctx.clearRect(0, 0, w, h);
   // ctx.putImageData(imgData, 0, 0);
