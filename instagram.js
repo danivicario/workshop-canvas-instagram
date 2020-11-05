@@ -73,12 +73,11 @@ function draw() {
 
   var imgData = ctx.getImageData(0, 0, w, h);
   ctx.clearRect(0, 0, w, h);
+  let step = 2;
+  let counter = 0;
+  let xxx = Math.floor(w / 20);
 
-  let x = 0;
-  let y = 0;
-  let step = w / 100;
-
-  for (let i = 0; i < imgData.data.length; i += 4 * 5) {
+  for (let i = 0, posX = 0, posY = 0; i < imgData.data.length; i += 4) {
     // imgData.data[i] = 255 + imgData.data[i];
     // imgData.data[i + 1] = 255 - imgData.data[i + 1];
     // imgData.data[i + 2] = 255 - imgData.data[i + 2];
@@ -86,14 +85,24 @@ function draw() {
     // imgData.data[i + 1] = randomInt(0, 255);
     // imgData.data[i + 2] = randomInt(0, 255);
     ctx.beginPath();
-    x += step;
-    i % w === 0 ? ((y += step), (x = 0)) : null;
-    ctx.arc(x, y, step / 2, 0, 2 * Math.PI);
-    ctx.fillStyle = `rgba(${imgData.data[i]},${imgData.data[i + 1]},${imgData.data[i + 2]},${
-      imgData.data[i + 3]
-    })`;
+
+    if (posX === w) {
+      posY += step / 2;
+      posX = 0;
+      counter = w * 4;
+    }
+
+    ctx.arc(posX, posY, 10, 0, 2 * Math.PI);
+
+    ctx.fillStyle = `rgba(${imgData.data[counter]},${imgData.data[counter + 1]},${
+      imgData.data[counter + 2]
+    }, .5)`;
+
     ctx.fill();
     ctx.closePath();
+
+    posX += xxx;
+    counter += xxx * 4;
   }
 
   // ctx.clearRect(0, 0, w, h);
@@ -102,7 +111,7 @@ function draw() {
 let img = new Image();
 img.src = "./img.jpg";
 img.onload = () => {
-  setInterval(() => {
+  window.requestAnimationFrame(() => {
     draw();
   }, 10);
 };
