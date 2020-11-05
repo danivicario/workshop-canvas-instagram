@@ -1,4 +1,13 @@
 // Dani Vicario - instagram experiment (canvas)- Thu 5 Nov 2020 00:22:08 CET
+function getPixelColor(imageData, col, row) {
+  return {
+    r: imageData.data[row * (imageData.width * 4) + col * 4 + 0],
+    g: imageData.data[row * (imageData.width * 4) + col * 4 + 1],
+    b: imageData.data[row * (imageData.width * 4) + col * 4 + 2]
+  };
+}
+
+let imageData;
 
 // eslint-disable-next-line no-unused-vars
 const globalCompositeOperationModes = {
@@ -69,7 +78,7 @@ function draw() {
   h2 = h / 2;
 
   ctx.drawImage(img, 0, 0, w, h);
-  var imageData = ctx.getImageData(0, 0, w, h);
+  imageData = ctx.getImageData(0, 0, w, h);
   ctx.clearRect(0, 0, w, h);
   let step = 1;
   let r, g, b;
@@ -85,13 +94,7 @@ function draw() {
       posY += 1;
       posX = 0;
     }
-    function getPixelColor(imageData, col, row) {
-      return {
-        r: imageData.data[row * (imageData.width * 4) + col * 4 + 0],
-        g: imageData.data[row * (imageData.width * 4) + col * 4 + 1],
-        b: imageData.data[row * (imageData.width * 4) + col * 4 + 2]
-      };
-    }
+
     let xxx = posX * posY * 4;
     let { r, g, b } = getPixelColor(imageData, posX, posY);
     var v = 0.2126 * r + 0.7152 * g + 0.0722 * b;
@@ -126,3 +129,17 @@ img.onload = () => {
 window.onresize = () => {
   draw();
 };
+
+canvas.addEventListener("mousemove", function (event) {
+  ctx.beginPath();
+  // pick(event, hoveredColor);
+  // console.log(event);
+
+  let { r, g, b } = getPixelColor(imageData, event.layerX, event.layerY);
+  // var v = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  // d[i] = d[i+1] = d[i+2] = v
+  ctx.rect(event.layerX, event.layerY, 10, 10);
+  ctx.fillStyle = `rgb(${255},${0},${0}, 1)`;
+  ctx.fill();
+  ctx.closePath();
+});
