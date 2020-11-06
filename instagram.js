@@ -85,32 +85,39 @@ function draw() {
 
 function applyFilter1() {
   ctx.clearRect(0, 0, w, h);
-  let posX = 0,
-    posY = 0;
+  let posX = w,
+    posY = h;
 
   for (let i = 0; i < w * h; i++) {
     ctx.beginPath();
 
-    if (posX > w) {
-      posY += 1;
-      posX = 0;
+    if (posX < 0) {
+      posY -= 1;
+      posX = w;
     }
 
     let { r, g, b } = getPixelColor(imageData, posX, posY);
     var v = 0.2126 * r + 0.7152 * g + 0.0722 * b;
 
-    if (randomInt(0, 1) === 0) {
+    if (randomInt(0, 0) === 0) {
       ctx.fillStyle = `rgb(${v},${v},${v}, 1)`;
       ctx.rect(posX, posY, 1, 1);
-      posX += 1;
+      posX -= 1;
     } else {
       ctx.fillStyle = `rgb(${v},${v},${v}, 1)`;
       ctx.rect(posX, posY, 25, 1);
-      posX += 25;
+      posX -= 25;
     }
     ctx.fill();
     ctx.closePath();
   }
+}
+
+function applyFilter2() {
+  debugger;
+  ctx.translate(w, 0);
+  ctx.scale(-1, 1);
+  ctx.drawImage(img, 0, 0, w, h);
 }
 
 function loadImage(id) {
@@ -154,6 +161,17 @@ function toolsPencilValue() {
 }
 function initMenu() {
   initValues();
+  enableFilters();
+}
+
+function enableFilters() {
+  document.querySelector("#filters-bw").onclick = () => {
+    applyFilter1();
+  };
+
+  document.querySelector("#filters-flip").onclick = () => {
+    applyFilter2();
+  };
 }
 
 document.querySelector("#tools-pencil").onclick = () => {
