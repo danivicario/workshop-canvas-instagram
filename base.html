@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <title>warmup - instagram experiment (canvas)</title>
+  <title>Dani Vicario - Base - instagram experiment (canvas)</title>
   <link rel="stylesheet" href="reset.css" />
   <style>
     html,
@@ -14,15 +14,74 @@
     }
 
     canvas {
-      /* background: black; */
+      background: black;
+    }
+
+    #toolbar {
+      position: absolute;
+      top: 2rem;
+      left: 2rem;
+      /* height: 15rem; */
+      width: 20rem;
+      border-radius: 0.5rem;
+      background: rgba(255, 255, 255, .5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding: 2rem 0;
+    }
+
+    aside h1 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    aside button {
+      margin-bottom: 1rem;
+    }
+
+    aside button:last-child {
+      margin-bottom: 0;
     }
   </style>
 </head>
 
 <body>
 
+  <aside id="toolbar">
+    <h1>Toolbar</h1>
+    <button class="circle-mode">Circle mode</button>
+    <button class="square-mode">Square mode</button>
+    <button class="animation-mode">Animation mode</button>
+    <button class="animate-image-mode">Animate image mode</button>
+    <button class="delete-mode">Delete mode</button>
+  </aside>
+
   <canvas id="canvas"></canvas>
   <script src="./base.js"></script>
+
+  <script>
+    document.querySelector("#toolbar .circle-mode").onclick = () => {
+      paintCosineFn("circle");
+    }
+
+    document.querySelector("#toolbar .square-mode").onclick = () => {
+      paintCosineFn("square");
+    }
+
+    document.querySelector("#toolbar .delete-mode").onclick = () => {
+      clearCanvas()
+    }
+
+    document.querySelector("#toolbar .animation-mode").onclick = () => {
+      animateCanvas()
+    }
+
+    document.querySelector("#toolbar .animate-image-mode").onclick = () => {
+      animateImage()
+    }
+  </script>
 
 </body>
 
