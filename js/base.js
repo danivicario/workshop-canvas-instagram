@@ -9,10 +9,10 @@ function getPixelColor(imageData, col, row) {
 }
 
 /** @type HTMLCanvasElement */
-const canvasDOMEl = document.getElementById("canvas");
+const canvasDOMEl = document.getElementById('canvas');
 
 /** @type CanvasRenderingContext2D */
-const ctx = canvasDOMEl.getContext("2d");
+const ctx = canvasDOMEl.getContext('2d');
 
 function randomFloat(min, max) {
   return Math.random() * (max - min) + min;
@@ -33,22 +33,22 @@ const PI_DOUBLE = 2 * Math.PI;
 // eslint-disable-next-line no-unused-vars
 const PI_HALF = Math.PI / 2;
 
-canvasDOMEl.setAttribute("width", window.innerWidth);
-canvasDOMEl.setAttribute("height", window.innerHeight);
+canvasDOMEl.setAttribute('width', window.innerWidth);
+canvasDOMEl.setAttribute('height', window.innerHeight);
 
 w = window.innerWidth;
 h = window.innerHeight;
 w2 = w / 2;
 h2 = h / 2;
 
-const paintCosineFn = (mode = "circle") => {
-  if (mode !== "square" && mode !== "circle") throw new Error("Chosen shape is not supported");
+const paintCosineFn = (mode = 'circle') => {
+  if (mode !== 'square' && mode !== 'circle') throw new Error('Chosen shape is not supported');
 
   for (let posX = 0; posX < w; posX++) {
     ctx.beginPath();
     ctx.fillStyle = `rgba(${randomInt(0, 255)}, ${randomInt(0, 255)}, ${randomInt(0, 255)}, .3)`;
 
-    if (mode === "square") {
+    if (mode === 'square') {
       ctx.rect(
         posX,
         h2 + 100 * Math.cos((posX * Math.PI) / 180),
@@ -57,7 +57,7 @@ const paintCosineFn = (mode = "circle") => {
       );
     }
 
-    if (mode === "circle") {
+    if (mode === 'circle') {
       ctx.arc(posX, h2 + 100 * Math.cos((posX * Math.PI) / 180), randomInt(5, 100), 0, 2 * Math.PI);
     }
 
@@ -86,7 +86,7 @@ const animateCanvas = () => {
 
 const animateImage = () => {
   let tuiBird = new Image();
-  tuiBird.src = "img3.jpg";
+  tuiBird.src = 'img/img3.jpg';
 
   tuiBird.onload = () => {
     let scale = 10;
@@ -115,7 +115,7 @@ const photoshopFilter = () => {
   }
 
   let tuiBird = new Image();
-  tuiBird.src = "img.jpg";
+  tuiBird.src = 'img/img.jpg';
 
   tuiBird.onload = () => {
     ctx.drawImage(tuiBird, 0, 0);
