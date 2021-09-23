@@ -86,7 +86,7 @@ const animateCanvas = () => {
 
 const animateImage = () => {
   let tuiBird = new Image();
-  tuiBird.src = 'img/img3.jpg';
+  tuiBird.src = '../img/img3.jpg';
 
   tuiBird.onload = () => {
     let scale = 10;
@@ -115,7 +115,7 @@ const photoshopFilter = () => {
   }
 
   let tuiBird = new Image();
-  tuiBird.src = 'img/img.jpg';
+  tuiBird.src = '../img/img.jpg';
 
   tuiBird.onload = () => {
     ctx.drawImage(tuiBird, 0, 0);
