@@ -34,7 +34,7 @@ w2 = w / 2;
 h2 = h / 2;
 
 let img = new Image();
-img.src = '../img/img.jpg';
+img.src = '../img/img3.jpg';
 let posX = 0;
 let iterations = 23698;
 let circleRadius = 23;

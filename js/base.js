@@ -115,7 +115,7 @@ const photoshopFilter = () => {
   }
 
   let tuiBird = new Image();
-  tuiBird.src = '../img/img.jpg';
+  tuiBird.src = '../img/img2.jpg';
 
   tuiBird.onload = () => {
     ctx.drawImage(tuiBird, 0, 0);

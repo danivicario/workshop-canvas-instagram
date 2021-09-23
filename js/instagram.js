@@ -122,7 +122,7 @@ function applyFilter2() {
 
 function loadImage(id) {
   img = new Image();
-  img.src = 'img/img.jpg';
+  img.src = 'img/img2.jpg';
   img.onload = () => {
     window.requestAnimationFrame(() => {
       draw();
