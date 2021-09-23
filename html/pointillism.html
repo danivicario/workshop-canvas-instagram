@@ -56,19 +56,28 @@
     aside .btn {
       margin-top: 1rem;
     }
+
+    aside span {
+      display: inline-block;
+      width: 70px;
+    }
+
+    aside input[type=range] {
+      width: 160px;
+    }
   </style>
 </head>
 
 <body>
 
   <aside>
-    <label for="slider-circle-radius">Circle radius: <input type="range" min="1" max="25" value="23"
+    <label for="slider-circle-radius"><span>Circle radius:</span> <input type="range" min="1" max="25" value="23"
         id="slider-circle-radius" />
       <span id="slider-circle-radius-value"></span>
     </label>
 
-    <label for="slider-iterations">Iterations: <input type="range" min="1000" max="300000" id="slider-iterations"
-        value="23698" /><span id="slider-iterations-value"></span></label>
+    <label for="slider-iterations"><span>Iterations:</span> <input type="range" min="1000" max="300000"
+        id="slider-iterations" value="23698" /><span id="slider-iterations-value"></span></label>
 
     <button class="btn btn-primary btn-md" id="run">Run!</button>
   </aside>
