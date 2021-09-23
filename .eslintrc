@@ -1,0 +1,23 @@
+{
+  "extends": ["airbnb"],
+  "env": {
+    "node": true,
+    "es6": true,
+    "browser": true
+  },
+  "allowTemplateLiterals": true,
+  "parser": "babel-eslint",
+  "rules": {
+    "indent": 2,
+    "comma-dangle": 2,
+    "no-plusplus": 2,
+    "quote-props": 2,
+    "no-const-assign": "error",
+    "no-unused-vars": "off",
+    "no-console": 0,
+    "comma-spacing": "error",
+    "no-multiple-empty-lines": "off",
+    "one-var": "off",
+    "quotes": "error"
+  }
+}
