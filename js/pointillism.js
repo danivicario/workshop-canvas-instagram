@@ -77,11 +77,24 @@ function drawProject() {
   ctx.clearRect(0, 0, w, h);
 
   let posX, posY;
+  let positionsSet = new Set();
 
   for (let i = 0; i < iterations; i++) {
     posX = randomInt(0, img.width);
     posY = randomInt(0, img.height);
 
+    positionsSet.add(`${posX}, ${posY}`);
+  }
+
+  const positions = [...positionsSet].map((position) => {
+    const split = position.split(',');
+    return { posX: +split[0], posY: +split[1] };
+  });
+
+  console.log(positions);
+
+  for (let i = 0; i < positions.length; i++) {
+    const { posX, posY } = positions[i];
     let color = getPixelColor(imageData, posX, posY);
 
     ctx.beginPath();
