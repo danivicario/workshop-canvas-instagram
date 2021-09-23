@@ -4,6 +4,12 @@ Ensure you have nodejs installed.
 
 Then run `npm install` and then `npm start` then go to `http://127.0.0.1:8080`
 
+You can run:
+
+http://127.0.0.1:8080 <br/>
+http://127.0.0.1:8080/html/pointillism.html <br/>
+http://127.0.0.1:8080/html/base.html
+
 <br/>
 
 ### Canvas API getImageData
