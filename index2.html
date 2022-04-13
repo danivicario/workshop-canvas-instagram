@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instagram</title>
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+
+    }
+
+    #canvas {
+      background: black;
+    }
+
+    #menu {
+      background: white;
+      padding: 2rem;
+      border-radius: .5rem;
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      display: flex;
+      flex-direction: column;
+      /* display: none; */
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas"></canvas>
+  <aside id="menu">
+    <span>Param 1</span>
+    <input type="range" id="param1" min="0" max="20000">
+
+    <span>Param 2</span>
+    <input type="range" id="param2" min="0" max="9000">
+  </aside>
+
+  <script src="js/index2.js"></script>
+</body>
+
+</html>
